@@ -1,0 +1,29 @@
+@import helper._
+@()(implicit request: RequestHeader)
+@main("Login") {
+<div class="container">
+    <h1>Please login to Continue!</h1>
+    <form method="post" action="/userhome">
+        @CSRF.formField
+        <div>
+            <label>User name: </label>
+            <input type="text" id="username" name="username" placeholder="Enter User name" required>
+        </div>
+        <br>
+        <div>
+            <label>Password: </label>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required>
+        </div>
+        <br>
+        <div>
+            <label>Account Type:</label>
+            <input type="radio" name="accounttype" value="Admin" checked> Admin
+            <input type="radio" name="accounttype" value="User"> User
+        </div>
+        <br>
+        <a href="@routes.LoginController.resetpassword()">Forgot Password</a>
+        <br><br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+}

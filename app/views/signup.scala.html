@@ -1,0 +1,68 @@
+@import helper._
+@()(implicit request: RequestHeader)
+@main("Sign up") {
+<div class="container">
+    <h1>Register Here!</h1>
+
+    <form method="post" action="@routes.SignupController.storeData()">
+        @CSRF.formField
+        <table class="table td">
+            <tr>
+                <td><label>First name: </label></td>
+               <td><input type="text" id="firstname" name="firstname" placeholder="Enter First name" required
+                          pattern="[A-Za-z]+"></td>
+            </tr>
+            <tr>
+                <td><label>Middle name: </label></td>
+                <td>
+                    <input type="text" id="middlename" name="middlename" placeholder="Enter Middle name" pattern="[A-Za-z]+">
+                </td>
+            </tr>
+            <tr>
+                <td><label>Last name: </label></td>
+                <td><input type="text" id="lastname" name="lastname" placeholder="Enter Last name" required pattern="[A-Za-z]+"></td>
+            </tr>
+            <tr>
+                <td><label>User name: </label></td>
+                <td><input type="text" id="username" name="username" placeholder="Enter User name" required></td>
+            </tr>
+            <tr>
+                <td><label>Password: </label></td>
+                <td><input type="password" id="password" name="password" placeholder="Enter Password" required
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                           title="at least one number and one uppercase and lowercase letter, and at least 8 or more characters">(Atleast 1 number,1 uppercase,1 lowercase letter & 8 or more characters.)</td>
+            </tr>
+            <tr>
+                <td><label>Re-enter Password: </label></td>
+                <td> <input type="password" id="re-password" name="re-password" placeholder="Re-enter Password" required></td>
+            </tr>
+            <tr>
+                <td><label>Mobile no.: </label></td>
+                <td><input type="text" id="mobile" name="mobile" placeholder="Enter Mobile number" required
+                           pattern="[789][0-9]{9}"></td>
+            </tr>
+            <tr>
+                <td><label>Gender:</label></td>
+                <td><label class="radio-inline"><input type="radio" name="gender" value="male" checked>Male</label>
+                    <label class="radio-inline"><input type="radio" name="gender" value="female">Female</label></td>
+            </tr>
+            <tr>
+                <td><label>Age(18-54):*</label></td>
+                <td><input type="number" name="age" required min="18" max="54"></td>
+            </tr>
+            <tr>
+                <td><label>Hobbies:</label></td>
+                <td><input type="checkbox" name="hobbies" value=" Playing "> Cricket
+                    <input type="checkbox" name="hobbies" value=" Cooking "> Cooking
+                    <input type="checkbox" name="hobbies" value=" Travelling "> Travelling</td>
+            </tr>
+            <tr>
+                <td><label>Account Type:</label></td>
+                <td><input type="radio" name="accounttype" value="Admin" checked> Admin
+                    <input type="radio" name="accounttype" value="User"> User</td>
+            </tr>
+        </table>
+        <input class="btn-primary" type="submit" value="Sign Up">
+    </form><br>
+</div>
+}
