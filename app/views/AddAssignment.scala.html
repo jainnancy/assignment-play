@@ -1,0 +1,25 @@
+@import helper._
+@(assignmentForm:Form[AssignmentForm])(implicit request: RequestHeader,flash : Flash)
+@main("Add Assignment") {
+<div class="container">
+    <h1>Add Assignments!</h1>
+    <form method="post" action="@routes.AssignmentController.addAssignment()">
+        @CSRF.formField
+        <div>
+            <label>Assignment Title: </label>
+            <input type="text" id="title" name="title" placeholder="Enter assignment title" required>
+        </div>
+        <br>
+        <div>
+            <label>Description: </label>
+            <input type="text" id="description" name="description" placeholder="Enter description" required>
+        </div>
+        <br><br>
+        <input type="submit" value="Add Assignment">
+    </form>
+    <br>
+    <a href="@routes.LoginController.adminhome()">Back to home page!</a>
+</div>
+}
+@flash.get("Error")
+@flash.get("Success")

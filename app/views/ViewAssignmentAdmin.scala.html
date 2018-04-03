@@ -1,0 +1,33 @@
+@(assignments:List[Assignment])(implicit messages : Messages, flash : Flash)
+@main("Admin Assignment page") {
+<center><H1>Assignment List</H1></center>
+@if(assignments.isEmpty){
+<h1>No Assignments</h1>
+} else {
+<div style="background-color:red;">@flash.get("Error")</div>
+
+<div style="background-color:green;">@flash.get("Success")</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(assignment<-assignments){
+        <tr>
+            <td>@assignment.title</td>
+            <td>@assignment.description</td>
+            <td><a href="@controllers.routes.AssignmentController.deleteAssignment(assignment.id)"> Delete</a></td>
+        </tr>
+        }
+        </tbody>
+    </table>
+    <a href="@routes.LoginController.adminhome()">Back to home page!</a>
+</div>
+}
+}

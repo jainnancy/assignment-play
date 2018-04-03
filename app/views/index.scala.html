@@ -1,4 +1,4 @@
-@()
+@()(implicit flash: Flash)
 @main("Knoldus") {
 <div class="container-fluid">
   <h1>Welcome to KIP Assignment Portal!</h1>
@@ -10,4 +10,4 @@
 </nav>
 </div>
 }
-
+@flash.get("Success")

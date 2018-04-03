@@ -11,9 +11,11 @@ class SignupController @Inject()(userform: UserForm, userRepository: UserReposit
                                  cc: ControllerComponents) extends AbstractController(cc) {
 
   def storeData: Action[AnyContent] = Action.async { implicit request =>
+
     userform.userForm.bindFromRequest().fold(
       formWithErrors => {
-        Future.successful(BadRequest(views.html.signup()))
+        Future.successful(Redirect(routes.HomeController.signup())
+          .flashing("Error" -> "Fill form Correctly!"))
       },
       data => {
         userRepository.getUser(data.username).flatMap { optionalRecord =>
@@ -22,10 +24,14 @@ class SignupController @Inject()(userform: UserForm, userRepository: UserReposit
             val record = User(data.firstname, data.middlename, data.lastname, data.username, data.password,
               data.verifyPassword, data.mobile, data.gender, data.age, data.hobbies, data.accountType)
             userRepository.store(record).map { _ =>
-              Ok("Stored")
+              Redirect(routes.HomeController.index())
+                .flashing("Success" -> "Thank You for registration")
+                .withSession("user" -> data.username)
             }
-          } { _ =>
-            Future.successful(InternalServerError("User already exist."))
+          }
+          { _ =>
+            Future.successful(Redirect(routes.HomeController.signup())
+              .flashing("Error" -> "User name Already exists"))
           }
         }
       })
@@ -39,7 +45,6 @@ class SignupController @Inject()(userform: UserForm, userRepository: UserReposit
         record =>
           Ok(s"User's full name = ${record.firstname} ${record.middlename} ${record.lastname}")
       }
-
     }
   }
 }

@@ -1,10 +1,10 @@
 @import helper._
-@()(implicit request: RequestHeader)
+@()(implicit request: RequestHeader,flash : Flash)
 @main("Sign up") {
 <div class="container">
     <h1>Register Here!</h1>
 
-    <form method="post" action="@routes.SignupController.storeData()">
+    <form action="@routes.SignupController.storeData()" method="POST">
         @CSRF.formField
         <table class="table td">
             <tr>
@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <td><label>Re-enter Password: </label></td>
-                <td> <input type="password" id="re-password" name="re-password" placeholder="Re-enter Password" required></td>
+                <td> <input type="password" id="re-password" name="verifyPassword" placeholder="Re-enter Password" required></td>
             </tr>
             <tr>
                 <td><label>Mobile no.: </label></td>
@@ -54,15 +54,18 @@
                 <td><label>Hobbies:</label></td>
                 <td><input type="checkbox" name="hobbies" value=" Playing "> Cricket
                     <input type="checkbox" name="hobbies" value=" Cooking "> Cooking
-                    <input type="checkbox" name="hobbies" value=" Travelling "> Travelling</td>
+                    <input type="checkbox" name="hobbies" value=" Travelling "> Travelling
+                    <input type="checkbox" name="hobbies" value=" Others " checked> Others
+                </td>
             </tr>
             <tr>
                 <td><label>Account Type:</label></td>
-                <td><input type="radio" name="accounttype" value="Admin" checked> Admin
-                    <input type="radio" name="accounttype" value="User"> User</td>
+                <td><input type="radio" name="accountType" value="Admin" checked> Admin
+                    <input type="radio" name="accountType" value="User"> User</td>
             </tr>
         </table>
         <input class="btn-primary" type="submit" value="Sign Up">
     </form><br>
 </div>
 }
+@flash.get("Error")
