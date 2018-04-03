@@ -1,0 +1,52 @@
+@import helper._
+@(userForm: Form[UpdateProfile])(implicit request: RequestHeader,flash : Flash)
+@main("Update Details") {
+<div class="container">
+    <h1>Update Details!</h1>
+
+    <form action="@routes.UsersController.updateProfile()" method="POST">
+        @CSRF.formField
+        <table class="table td">
+            <tr>
+                <td><label>First name: </label></td>
+                <td><input type="text" id="firstname" name="firstname" placeholder="Enter First name" required
+                           pattern="[A-Za-z]+"></td>
+            </tr>
+            <tr>
+                <td><label>Middle name: </label></td>
+                <td>
+                    <input type="text" id="middlename" name="middlename" placeholder="Enter Middle name" pattern="[A-Za-z]+">
+                </td>
+            </tr>
+            <tr>
+                <td><label>Last name: </label></td>
+                <td><input type="text" id="lastname" name="lastname" placeholder="Enter Last name" required pattern="[A-Za-z]+"></td>
+            </tr>
+            <tr>
+                <td><label>Mobile no.: </label></td>
+                <td><input type="text" id="mobile" name="mobile" placeholder="Enter Mobile number" required
+                           pattern="[789][0-9]{9}"></td>
+            </tr>
+            <tr>
+                <td><label>Gender:</label></td>
+                <td><label class="radio-inline"><input type="radio" name="gender" value="male">Male</label>
+                    <label class="radio-inline"><input type="radio" name="gender" value="female">Female</label></td>
+            </tr>
+            <tr>
+                <td><label>Age(18-54):*</label></td>
+                <td><input type="number" name="age" required min="18" max="54"></td>
+            </tr>
+            <tr>
+                <td><label>Hobbies:</label></td>
+                <td><input type="checkbox" name="hobbies" value=" Playing "> Cricket
+                    <input type="checkbox" name="hobbies" value=" Cooking "> Cooking
+                    <input type="checkbox" name="hobbies" value=" Travelling "> Travelling
+                    <input type="checkbox" name="hobbies" value=" Others "> Others
+                </td>
+            </tr>
+        </table>
+        <input class="btn-primary" type="submit" value="Update">
+    </form><br>
+</div>
+}
+@flash.get("Success")

@@ -1,12 +1,12 @@
-@()
+@()(implicit flash : Flash)
 @main("User Home Page"){
 
 <div>
     <nav>
         <div>
                 <ul>
-                    <li><a>Profile</a></li>
-                    <li><a>View Assignment</a></li>
+                    <li><a href="@routes.UsersController.showProfile()">Profile</a></li>
+                    <li><a href="@routes.AssignmentController.viewAssignmentUser()">View Assignment</a></li>
                 </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="@routes.HomeController.login()">LogOut</a></li>
